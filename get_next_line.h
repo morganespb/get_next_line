@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
+/*                                                       :::      ::::::::    */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mosimon <mosimon@learner.42.tech>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/23 12:31:48 by mosimon           #+#    #+#             */
-/*   Updated: 2026/04/23 12:42:25 by mosimon          ###   ########.fr       */
+/*                                                   +:+ +:+         +:+      */
+/*   By: mosimon <morgane.simon@learner.42.tech>   #+#  +:+       +#+         */
+/*                                               +#+#+#+#+#+   +#+            */
+/*   Created: 2026/04/23 12:31:48 by mosimon          #+#    #+#              */
+/*   Updated: 2026/04/25 08:19:01 by mosimon         ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE
-# define GET_NEXT_LINE
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-#include <stdio.h.>
-#include <stdlib.h>
-#include <unistd.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
 
-size_t  ft_strlen(const char *s);
-char *ft_strjoin(char const *s1, char const *s2);
-char *ft_strdup(const char *s1);
-char *ft_substr(const char *s, unsigned int start, size_t len);
-char *ft_strchr(const char *s, int c);
+size_t	ft_strlen(const char *s);
+char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strdup(const char *s1);
+char	*ft_substr(const char *s, unsigned int start, size_t len);
+char	*ft_strchr(const char *s, int c);
+char	*get_next_line(int fd);
 
-
+#endif
