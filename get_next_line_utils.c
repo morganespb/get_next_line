@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                       :::      ::::::::    */
-/*   get_next_line_utils.c                             :+:      :+:    :+:    */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                   +:+ +:+         +:+      */
 /*   By: mosimon <morgane.simon@learner.42.tech>   #+#  +:+       +#+         */
 /*                                               +#+#+#+#+#+   +#+            */
 /*   Created: 2026/04/23 12:27:39 by mosimon          #+#    #+#              */
-/*   Updated: 2026/04/25 08:17:58 by mosimon         ###   ########.fr        */
+/*   Updated: 2026/04/26 14:36:38 by mosimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,28 +22,30 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char const *stash, char const *buffer)
 {
-	char	*res;
-	int		len;
+	char	*new;
 	int		i;
 	int		j;
 
 	i = 0;
 	j = 0;
-	len = ft_strlen(s1) + ft_strlen(s2);
-	res = malloc((len + 1) * sizeof(char));
-	if (!res)
+	if (!stash)
+		stash = "";
+	if (!buffer)
 		return (NULL);
-	while (s1[i])
+	new = malloc(ft_strlen(stash) + ft_strlen(buffer) + 1);
+	if (!new)
+		return (NULL);
+	while (stash[i])
 	{
-		res[i] = s1[i];
+		new[i] = stash[i];
 		i++;
 	}
-	while (s2[j])
-		res[i++] = s2[j++];
-	res[i] = '\0';
-	return (res);
+	while (buffer[j])
+		new[i++] = buffer[j++];
+	new[i] = '\0';
+	return (new);
 }
 
 char	*ft_strdup(const char *s1)
@@ -98,14 +100,24 @@ char	*ft_strchr(const char *s, int c)
 {
 	int	i;
 
+	if (!s)
+		return (NULL);
 	i = 0;
 	while (s[i])
 	{
 		if (s[i] == (char) c)
-			return ((char *) & s[i]);
+			return ((char *) &s[i]);
 		i++;
 	}
-	if ((char) c == '\0')
-		return ((char *) & s[i]);
+	if (s[i] == (char) c)
+		return ((char *) &s[i]);
 	return (NULL);
 }
+
+/*int	main(void)
+{
+	char *stash = "hello";
+	char *buffer = " ca va";
+	printf("%s", ft_strjoin(stash, buffer));
+	return 0;
+}*/

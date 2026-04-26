@@ -6,7 +6,7 @@
 /*   By: mosimon <morgane.simon@learner.42.tech>   #+#  +:+       +#+         */
 /*                                               +#+#+#+#+#+   +#+            */
 /*   Created: 2026/04/23 12:52:10 by mosimon          #+#    #+#              */
-/*   Updated: 2026/04/25 08:55:49 by mosimon          ###   ########.fr       */
+/*   Updated: 2026/04/26 14:49:15 by mosimon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ char	*extract_line(char *stash)
 	line = malloc(i + 1);
 	if (!line)
 		return (NULL);
+	i = 0;
 	while (stash[i] && stash[i] != '\n')
 	{
 		line[i] = stash[i];
@@ -63,7 +64,7 @@ char	*extract_line(char *stash)
 	}
 	if (stash[i] == '\n')
 	{
-		line[i] == '\n';
+		line[i] = '\n';
 		i++;
 	}
 	line[i] = '\0';
@@ -71,28 +72,24 @@ char	*extract_line(char *stash)
 }
 
 //clean stash, remove the line you just returned, keep the rest for next call
-
 char	*clean_stash(char *stash)
 {
 	int i;
-	int j;
 	char *new_stash;
 
 	i = 0;
-	j = 0;
 	while (stash[i] && stash[i] != '\n')
 		i++;
 	if (!stash[i]) //no new line, nothing left
 	{
-		free(stash)
+		free(stash);
 		return (NULL);
 	}
-	new_stash = malloc(ft_strlen(stash) - i + 1);
+	i++;
+	new_stash = malloc(ft_strlen(stash + i) + 1);
 	if (!new_stash)
 		return (NULL);
-	while (stash[i])
-		new_stash[j++] = stash[i++];
-	new_stash[j] = '\0';
+	new_stash = ft_strdup(stash + i);
 	free(stash);
 	return (new_stash);
 }
@@ -111,3 +108,31 @@ char	*get_next_line(int fd)
 	stash = clean_stash(stash);
 	return (line);
 }
+
+int main(void)
+{
+	int fd;
+	char *line;
+	int i;
+
+	i = 1;
+	fd = open("text.txt", O_RDONLY);
+	if (fd < 0)
+		return (1);
+	while ((line = get_next_line(fd)))
+	{
+		printf("LINE %d: %s\n", i++, line);
+		free(line);
+	}
+	close(fd);
+	return (0);
+}
+/*int	main(void)
+{
+	char stash[] = "hello\nWorld\n";
+	char *line = extract_line(stash);
+	printf("%s\n", line);
+	char *new_stash = clean_stash(stash);
+	printf("new stash: %s\n", new_stash);
+	return 0;
+}*/
